@@ -7,20 +7,34 @@ using namespace std;
 class Solution
 {
 public:
-    string longestCommonPrefix(vector<string> &strs)
+    string longestCommonPrefix(vector<string> &v)
     {
+        string ans = "";
 
-        for (const string &str : strs)
+        sort(v.begin(), v.end());
+
+        int n = v.size();
+
+        string first = v[0], last = v[n - 1];
+
+        for (int i = 0; i < min(first.size(), last.size()); i++)
         {
-            
+            if (first[i] != last[i])
+                return ans;
+
+            ans += first[i];
         }
 
-        return "";
+        return ans;
     }
 };
 
 int main()
 {
+
+    vector<string> strs = {"flower", "flow", "flight"};
+    Solution sol;
+    cout << sol.longestCommonPrefix(strs);
 
     return 0;
 }
