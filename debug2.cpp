@@ -1,6 +1,59 @@
-// Fibonacci with DP
-// 70. Climbing Stairs
-// Dp
+// search in rotated sorted array using binary search
+
+// #include <bits/stdc++.h>
+// using namespace std;
+// class Solution
+// {
+// public:
+//     int search(vector<int> &nums, int target)
+//     {
+//         int low = 0;
+//         int high = nums.size() - 1;
+//         while (low <= high)
+//         {
+//             int mid = (low + high) / 2;
+
+//             if (nums[mid] == target)
+//             {
+//                 return mid;
+//             }
+
+//             // Identify the sorted half
+
+//             // left sort
+//             if (nums[low] <= nums[mid])
+//             {
+//                 if (nums[low] <= target && target <= nums[mid])
+//                     high = mid - 1;
+//                 else
+//                     low = mid + 1;
+//             }
+//             // right sort
+//             else
+//             {
+//                 if (nums[mid] <= target && target <= nums[high])
+//                     low = mid + 1;
+//                 else
+//                     high = mid - 1;
+//             }
+//         }
+
+//         return -1;
+//     }
+// };
+// int main()
+// {
+//     vector<int> nums = {5, 1, 3};
+
+//     int target = 0;
+//     Solution sol;
+
+//     cout << sol.search(nums, target);
+
+//     return 0;
+// }
+
+// find peak element
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -8,52 +61,43 @@ using namespace std;
 class Solution
 {
 public:
-    // int climbStairs(int n)
-    // {
-
-    //     int prev = 1;
-    //     int prev2 = 1;
-
-    //     for (int i = 2; i <= n; i++)
-    //     {
-    //         int curi = prev + prev2;
-    //         prev = prev2;
-    //         prev2 = curi;
-    //     }
-    //     return prev2;
-    // }
-    int preClimbStairs(int n, vector<int> &dp)
+    int findPeakElement(vector<int> &nums)
     {
-        if (n <= 1)
-            return dp[n] = 1;
+        int low = 0;
+        int high = nums.size() - 1;
 
-        if (dp[n] != -1)
-            return dp[n];
+        if (nums.size() == 1)
+            return 0;
 
-        int left = preClimbStairs(n - 1, dp);
-        int right = preClimbStairs(n - 2, dp);
+        while (low <= high)
+        {
+            int mid = (low + high) / 2;
 
-        return dp[n] = right + left;
-    }
+            if (mid == 0 && nums[mid] > nums[mid + 1])
+                return mid;
 
-    int climbStairs(int n)
-    {
-        vector<int> dp(n + 1, -1);
-        preClimbStairs(n, dp);
+            else if (mid == nums.size() - 1 && nums[mid] > nums[mid - 1])
+                return mid;
 
-        return dp[n];
+            if ((nums[mid - 1] < nums[mid]) && (nums[mid] > nums[mid + 1]))
+                return mid;
+
+            else if ((nums[mid - 1] > nums[mid]) && (nums[mid] > nums[mid + 1]))
+                high = mid - 1;
+            else
+                low = mid + 1;
+        }
+
+        return -1;
     }
 };
-
 int main()
 {
-
-    int n = 4;
-
-    vector<int> dp(n + 1, -1);
+    vector<int> nums = {1, 2};
 
     Solution sol;
-    cout << sol.climbStairs(n);
+
+    cout << sol.findPeakElement(nums);
 
     return 0;
 }

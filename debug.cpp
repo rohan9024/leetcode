@@ -1,9 +1,12 @@
 #include <bits/stdc++.h>
+
 using namespace std;
+
 
 int main()
 {
-    cout << (12 / 5) >= m << endl;
+    vector<int> price = {1, 2, 3, 4, 5};
 
+    cout << 8 / 3 << endl;
     return 0;
 }

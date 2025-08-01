@@ -24,7 +24,6 @@ public:
             }
         }
 
-        cout << num << "  " << n << endl;
 
         if (n >= m)
             return true;
