@@ -6,28 +6,30 @@ using namespace std;
 class Solution
 {
 public:
-    vector<int> func(vector<int> &a, int l, int r)
+
+    void func(vector<int> &a, int i)
     {
-        if (l >= r)
-            return a;
 
-        int temp = a[l];
-        a[l] = a[r];
-        a[r] = temp;
+        int n = a.size();
 
-        return func(a, l + 1, r - 1);
+        if (i >= n / 2)
+            return;
+
+        swap(a[i], a[n - i - 1]);
+
+        func(a, i + 1);
     }
 };
 
 int main()
 {
 
-    vector<int> a = {1, 2, 3, 4, 5,6};
+    vector<int> a = {1, 2, 3, 4, 5, 6};
 
     Solution sol;
-    vector<int> b = sol.func(a, 0, 4);
+    sol.func(a, 0);
 
-    for (auto it : b)
+    for (auto it : a)
     {
         cout << it << " ";
     }
