@@ -1,62 +1,31 @@
-
-// permutations LC
-
+// lever 
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution
-{
-public:
-    void f(vector<int> &nums, vector<int> temp, vector<vector<int>> &ans, vector<int> &freq)
-    {
-        if (nums.size() == temp.size())
-        {
-            ans.push_back(temp);
-            return;
-        }
-
-        for (int i = 0; i < nums.size(); i++)
-        {
-            if (!freq[i])
-            {
-                temp.push_back(nums[i]);
-                freq[i] = 1;
-                f(nums, temp, ans, freq);
-                freq[i] = 0;
-                temp.pop_back();
-            }
-        }
-    }
-    vector<vector<int>> permute(vector<int> &nums)
-    {
-        vector<vector<int>> ans;
-        vector<int> temp;
-
-        vector<int> freq(nums.size(), 0);
-        f(nums, temp, ans, freq);
-
-        return ans;
-    }
-};
-
 int main()
 {
-    vector<int> a = {1, 2, 3};
-    vector<vector<int>> ans;
-    Solution sol;
-
-    ans = sol.permute(a);
-
-    for (int i = 0; i < ans.size(); i++)
+    int t;
+    cin >> t;
+    while (t--)
     {
-        for (int j = 0; j < ans[i].size(); j++)
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; i++)
+            cin >> a[i];
+        vector<int> b(n);
+        for (int i = 0; i < n; i++)
+            cin >> b[i];
+
+        int ans = 1;
+
+        for (int i = 0; i < n; i++)
         {
-            cout << ans[i][j] << " ";
+            ans += max(0, a[i] - b[i]);
         }
-        cout << endl;
+
+        cout << ans << endl;
     }
 
     return 0;
 }
-
-// 1,2,3
