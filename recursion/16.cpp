@@ -1,5 +1,5 @@
 
-// permutations LC
+// permutations better wala LC
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -7,34 +7,24 @@ using namespace std;
 class Solution
 {
 public:
-    void f(vector<int> &nums, vector<int> temp, vector<vector<int>> &ans, vector<int> &freq)
+    void f(int ind, vector<int> &nums, vector<vector<int>> &ans)
     {
-        if (nums.size() == temp.size())
+        if (ind == nums.size())
         {
-            ans.push_back(temp);
+            ans.push_back(nums);
             return;
         }
-
-        for (int i = 0; i < nums.size(); i++)
+        for (int i = ind; i < nums.size(); i++)
         {
-            if (!freq[i])
-            {
-                temp.push_back(nums[i]);
-                freq[i] = 1;
-                f(nums, temp, ans, freq);
-                freq[i] = 0;
-                temp.pop_back();
-            }
+            swap(nums[i], nums[ind]);
+            f(ind + 1, nums, ans);
+            swap(nums[i], nums[ind]);
         }
     }
     vector<vector<int>> permute(vector<int> &nums)
     {
         vector<vector<int>> ans;
-        vector<int> temp;
-
-        vector<int> freq(nums.size(), 0);
-        f(nums, temp, ans, freq);
-
+        f(0, nums, ans);
         return ans;
     }
 };

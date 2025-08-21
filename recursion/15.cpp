@@ -7,14 +7,13 @@ using namespace std;
 class Solution
 {
 public:
-    void f(vector<int> &nums, vector<int> temp, vector<vector<int>> &ans, vector<int> &freq)
+    void f(vector<int> &nums, vector<int> &temp, vector<vector<int>> &ans, int freq[])
     {
-        if (nums.size() == temp.size())
+        if (temp.size() == nums.size())
         {
             ans.push_back(temp);
             return;
         }
-
         for (int i = 0; i < nums.size(); i++)
         {
             if (!freq[i])
@@ -30,11 +29,14 @@ public:
     vector<vector<int>> permute(vector<int> &nums)
     {
         vector<vector<int>> ans;
+        int freq[nums.size()];
+
         vector<int> temp;
 
-        vector<int> freq(nums.size(), 0);
-        f(nums, temp, ans, freq);
+        for (int i = 0; i < nums.size(); i++)
+            freq[i] = 0;
 
+        f(nums, temp, ans, freq);
         return ans;
     }
 };
